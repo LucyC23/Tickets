@@ -50,11 +50,10 @@ namespace Tickets
             }
             return line.AppendLine(lineaIgual).ToString();// Devolvemos la lineaGuia con signo igual
         }
-
         //Creacion del encabezado para los articulos
         public void encabezadoVenta()
         {
-            line.AppendLine("ARTICULO                   |CANTIDAD|PRECIO|IMPORTE");
+            line.AppendLine("ARTICULO          |CANTIDAD|PRECIO");
         }
 
         //Metodo para colocar el texto a la izquierda
@@ -130,7 +129,7 @@ namespace Tickets
                     caracterActual += maxCaract;
                 }
                 //Variable para poner espacios restantes
-                string espacios = "";
+                string espacios = " ";
                 //Se obtiene la cantidad de espacios libres y el resultado se divide entre dos
                 int centrar = (maxCaract - texto.Length) / 2;
                 //Obtenemos la longitud del texto restante
@@ -200,7 +199,7 @@ namespace Tickets
                 resumen = texto;
             }
             textoCompleto = resumen;
-            valor = total.ToString("#, #.00");//Agregamos el total previo formateo
+            valor = total.ToString("#.00");//Agregamos el total previo formateo
 
             //Obtenemos el numero de espacios restantes para alinearls a la derecha
             int numeroEspacios = maxCaract - (resumen.Length + valor.Length);
@@ -214,18 +213,18 @@ namespace Tickets
              }
 
         //Metodo para agrefar articulos al ticket de venta
-        public void agregarArticulos(string articulo, int cant, decimal precio, decimal importe)
+        public void agregarArticulos(string articulo, int cant, decimal precio)
         {
 
-            //Valida que la cantidad precio e importe esten dentro del rango
-            if (cant.ToString().Length < 5 && precio.ToString().Length <= 7 && importe.ToString().Length <= 8)
+            //Valida que la cantidad precio  esten dentro del rango
+            if (cant.ToString().Length < 5 && precio.ToString().Length <= 7 )
             {
-                string elemento = "", espacios = "";
+                string elemento = "", espacios = " ";
                 bool bandera = false;// Indicara ei es la primera linea que se escribe cuando se baje a la segunda si el nombre del articulo no entra en la primera linea 
                 int numeroEspacios = 0;
 
                 //Si el nombre o descripcion del articulo es mayor a 20, bajar a la siguiente linea
-                if (articulo.Length > 20)
+                if (articulo.Length > 10)
                 {
                     //Colocar la cantidad a la derecha 
                     numeroEspacios = (5 - cant.ToString().Length);
@@ -245,37 +244,28 @@ namespace Tickets
                     }
                     elemento += espacios + precio.ToString();//Agregamos el precio a la variable elemento
 
-                    //Colocar el importe a la derecha
-                    numeroEspacios = (8 - importe.ToString().Length);
-                    espacios = "";
-                    for (int i = 0; i < numeroEspacios; i++)
-                    {
-                        espacios += " ";
-                    }
-                    elemento += espacios + importe.ToString();//Agregamos el importe alineado a la derecha.
-
                     //Indicara en que caracter se quedo al bajar a la siguiente linea
                     int caracterAtual = 0;
 
                     //Por cada 20 caracteres se agregara una linea siguiente
-                    for (int longitudTexto = articulo.Length; longitudTexto < 20; longitudTexto -= 20)
+                    for (int longitudTexto = articulo.Length; longitudTexto < 10; longitudTexto -= 10)
                     {
                         if (bandera == false)
                         {
-                            line.AppendLine(articulo.Substring(caracterAtual, 20) + elemento);
+                            line.AppendLine(articulo.Substring(caracterAtual, 10) + elemento);
                             bandera = true;
                         }
                         else
 
-                            line.AppendLine(articulo.Substring(caracterAtual, 20));
+                            line.AppendLine(articulo.Substring(caracterAtual, 10));
 
-                        caracterAtual += 20;
+                        caracterAtual += 10;
                     }
                     line.AppendLine(articulo.Substring(caracterAtual, articulo.Length - caracterAtual));
                 }
                 else
                 {
-                    for (int i = 0; i < (20 - articulo.Length); i++)
+                    for (int i = 0; i < (10 - articulo.Length); i++)
                     {
                         espacios += " ";
                     }
@@ -291,28 +281,126 @@ namespace Tickets
                     elemento += espacios + cant.ToString();
 
                     //Colocar el precio a la derecha
-                    numeroEspacios = (7 - precio.ToString().Length);
+                    numeroEspacios = ( - precio.ToString().Length);
                     espacios = "";
                     for (int i = 0; i < numeroEspacios; i++)
                     {
                         espacios += " ";
                     }
                     elemento += espacios + precio.ToString();
-
-                    //Colocar Importe a la derecha
-                    numeroEspacios = (8 - importe.ToString().Length);
-                    espacios = "";
-                    for (int i = 0; i < numeroEspacios; i++)
-                    {
-                        espacios += " ";
-                    }
-                    elemento += espacios + importe.ToString();
-
-                    line.AppendLine(elemento);
                 }
                   }
-
-                }
+            else
+            {
+                line.AppendLine("Los valores ingresados para esta fila");
+                line.AppendLine("superan las columnas soportadas para este.");
+                throw new Exception("Los valores ingresados para algunas filas del ticket\n superan las columnas soportadas por este");
             }
+          }
+
+        //Metodo para enviar secuencias de escape a la impresora
+        //Para cortar el ticket
+        public void cortarTicket()
+        {
+            line.AppendLine("\x1B69" + "m");//Caracteres de corte, estps comandos varian segun el tipo de impresor
+            line.AppendLine("\x1B69" + "d" + "\x09");//Avanza 9 renglones, tambien varian 
         }
+        public void imprimirTicket(string impresora)
+        {
+            RawPrinterHelper.SendStringToPrinter(impresora, line.ToString());
+            line.Clear();
+        }
+            }
+
+    //Clase para mandara a imprimir texto plano a la impresora
+    public class RawPrinterHelper
+    {
+        // Structure and API declarions:
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+        public class DOCINFOA
+        {
+            [MarshalAs(UnmanagedType.LPStr)]
+            public string pDocName;
+            [MarshalAs(UnmanagedType.LPStr)]
+            public string pOutputFile;
+            [MarshalAs(UnmanagedType.LPStr)]
+            public string pDataType;
+        }
+        [DllImport("winspool.Drv", EntryPoint = "OpenPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool OpenPrinter([MarshalAs(UnmanagedType.LPStr)] string szPrinter, out IntPtr hPrinter, IntPtr pd);
+
+        [DllImport("winspool.Drv", EntryPoint = "ClosePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool ClosePrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", EntryPoint = "StartDocPrinterA", SetLastError = true, CharSet = CharSet.Ansi, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool StartDocPrinter(IntPtr hPrinter, Int32 level, [In, MarshalAs(UnmanagedType.LPStruct)] DOCINFOA di);
+
+        [DllImport("winspool.Drv", EntryPoint = "EndDocPrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool EndDocPrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", EntryPoint = "StartPagePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool StartPagePrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", EntryPoint = "EndPagePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool EndPagePrinter(IntPtr hPrinter);
+
+        [DllImport("winspool.Drv", EntryPoint = "WritePrinter", SetLastError = true, ExactSpelling = true, CallingConvention = CallingConvention.StdCall)]
+        public static extern bool WritePrinter(IntPtr hPrinter, IntPtr pBytes, Int32 dwCount, out Int32 dwWritten);
+
+        // SendBytesToPrinter()
+        // When the function is given a printer name and an unmanaged array
+        // of bytes, the function sends those bytes to the print queue.
+        // Returns true on success, false on failure.
+        public static bool SendBytesToPrinter(string szPrinterName, IntPtr pBytes, Int32 dwCount)
+        {
+            Int32 dwError = 0, dwWritten = 0;
+            IntPtr hPrinter = new IntPtr(0);
+            DOCINFOA di = new DOCINFOA();
+            bool bSuccess = false; // Assume failure unless you specifically succeed.
+
+            di.pDocName = "Ticket de Venta";//Este es el nombre con el que guarda el archivo en caso de no imprimir a la impresora fisica.
+            di.pDataType = "RAW";//de tipo texto plano
+
+            // Open the printer.
+            if (OpenPrinter(szPrinterName.Normalize(), out hPrinter, IntPtr.Zero))
+            {
+                // Start a document.
+                if (StartDocPrinter(hPrinter, 1, di))
+                {
+                    // Start a page.
+                    if (StartPagePrinter(hPrinter))
+                    {
+                        // Write your bytes.
+                        bSuccess = WritePrinter(hPrinter, pBytes, dwCount, out dwWritten);
+                        EndPagePrinter(hPrinter);
+                    }
+                    EndDocPrinter(hPrinter);
+                }
+                ClosePrinter(hPrinter);
+            }
+            // If you did not succeed, GetLastError may give more information
+            // about why not.
+            if (bSuccess == false)
+            {
+                dwError = Marshal.GetLastWin32Error();
+            }
+            return bSuccess;
+        }
+
+        public static bool SendStringToPrinter(string szPrinterName, string szString)
+        {
+            IntPtr pBytes;
+            Int32 dwCount;
+            // How many characters are in the string?
+            dwCount = szString.Length;
+            // Assume that the printer is expecting ANSI text, and then convert
+            // the string to ANSI text.
+            pBytes = Marshal.StringToCoTaskMemAnsi(szString);
+            // Send the converted ANSI string to the printer.
+            SendBytesToPrinter(szPrinterName, pBytes, dwCount);
+            Marshal.FreeCoTaskMem(pBytes);
+            return true;
+        }
+    }
+}
 

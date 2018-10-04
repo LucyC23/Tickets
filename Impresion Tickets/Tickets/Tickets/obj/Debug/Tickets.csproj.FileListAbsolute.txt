@@ -1,2 +1,10 @@
 c:\users\morpheus2\documents\visual studio 2015\Projects\Tickets\Tickets\bin\Debug\Tickets.exe.config
 C:\Users\Morpheus2\Documents\Prueba-Tickets\Tickets\Impresion Tickets\Tickets\Tickets\bin\Debug\Tickets.exe.config
+C:\Users\Morpheus2\Documents\Prueba-Tickets\Tickets\Impresion Tickets\Tickets\Tickets\bin\Debug\Tickets.exe
+C:\Users\Morpheus2\Documents\Prueba-Tickets\Tickets\Impresion Tickets\Tickets\Tickets\bin\Debug\Tickets.pdb
+C:\Users\Morpheus2\Documents\Prueba-Tickets\Tickets\Impresion Tickets\Tickets\Tickets\obj\Debug\Tickets.csprojResolveAssemblyReference.cache
+C:\Users\Morpheus2\Documents\Prueba-Tickets\Tickets\Impresion Tickets\Tickets\Tickets\obj\Debug\Tickets.Form1.resources
+C:\Users\Morpheus2\Documents\Prueba-Tickets\Tickets\Impresion Tickets\Tickets\Tickets\obj\Debug\Tickets.Properties.Resources.resources
+C:\Users\Morpheus2\Documents\Prueba-Tickets\Tickets\Impresion Tickets\Tickets\Tickets\obj\Debug\Tickets.csproj.GenerateResource.Cache
+C:\Users\Morpheus2\Documents\Prueba-Tickets\Tickets\Impresion Tickets\Tickets\Tickets\obj\Debug\Tickets.exe
+C:\Users\Morpheus2\Documents\Prueba-Tickets\Tickets\Impresion Tickets\Tickets\Tickets\obj\Debug\Tickets.pdb
