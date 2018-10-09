@@ -30,7 +30,7 @@ namespace Tickets
             //Se comienza a formar el ticket 
 
             //Datos de los encabezados del ticket
-            ticket.textoCentro("       MARQUESADA CELULAR S DE R.L DE C.V");
+            ticket.textoCentro("MARQUESADA CELULAR S DE R.L DE C.V");
             ticket.TextoIzquierda("Expedido en: Local Zaragoza");
             ticket.TextoIzquierda("Direccion: Zaragoza #239");
             ticket.TextoIzquierda("");
@@ -45,23 +45,24 @@ namespace Tickets
             ticket.LineaAsterisco();
             //Articulos a vender 
             ticket.encabezadoVenta();
-            ticket.TextoDerecha("");
             ticket.LineaAsterisco();
             //Para agregar los articulos que se tienen en un datagridview
             //foreach (DataGridViewRow item in #NombredelDGVdelacompra)
             // {
             // ticket.agregarArticulos(//Posicion de cada uno de los elementos del articulo);
             // }
-            ticket.agregarArticulos("Celular Sam",  1,  100);
+            ticket.agregarArticulos("Celular Samsung", 1, 10);
+            ticket.agregarArticulos("Funda para celular", 1, 50);
+            ticket.agregarArticulos("Este es un nombre largo del articulo para mostrar como se bajan las lineas", 1, 10);
 
             //Resumen de la venta
-            ticket.LineasGuia();
+            ticket.LineasIgual();
             ticket.agregarTotales("              TOTAL.......$", 100);
             ticket.TextoIzquierda("");
-
-            //Texto al final del Ticket
-            ticket.TextoDerecha("        Gracias por su compra");
+            ticket.TextoIzquierda("Articulos vendidos");
             ticket.TextoIzquierda("");
+            //Texto al final del Ticket
+            ticket.TextoDerecha("¡¡Gracias por su compra!!");
             ticket.cortarTicket();
             ticket.imprimirTicket("Microsoft XPS Document Writer");
         }

@@ -28,7 +28,6 @@ namespace Tickets
             }
             return line.AppendLine(lineasG).ToString();// Devolvemos la lineaGuia
         }
-
         //Metodo para dibujar lineas con asteriscos
         public string LineaAsterisco()
         {
@@ -39,7 +38,6 @@ namespace Tickets
             }
             return line.AppendLine(lineasAsterisco).ToString();// Devolvemos la lineaGuia
         }
-
         //Metodo para dibujar lineas con signo igual
         public string LineasIgual()
         {
@@ -53,9 +51,8 @@ namespace Tickets
         //Creacion del encabezado para los articulos
         public void encabezadoVenta()
         {
-            line.AppendLine("ARTICULO          |CANTIDAD|PRECIO");
+            line.AppendLine("ARTICULO           |CANTIDAD|PRECIO");
         }
-
         //Metodo para colocar el texto a la izquierda
         public void TextoIzquierda(string texto)
         {
@@ -67,6 +64,7 @@ namespace Tickets
                 {
                     //Agregamos los fragmentos que salgan del texto
                     line.AppendLine(texto.Substring(caracterActual, maxCaract));
+                    caracterActual += maxCaract;
                 }
                 //Agregamos el fragmento restante
                 line.AppendLine(texto.Substring(caracterActual, texto.Length - caracterActual));
@@ -77,7 +75,6 @@ namespace Tickets
                 line.AppendLine(texto);
             }
         }
-
         public void TextoDerecha(string texto)
         {
             //Condicion si el texto es mayor al numero maximo de caracteres 
@@ -93,7 +90,6 @@ namespace Tickets
                 //Variable para poner espacios restantes
                 string espacios = "";
                 //Obtenemos la longitus del texto restante
-
                 for (int i = 0; i < (maxCaract - texto.Substring(caracterActual, texto.Length - caracterActual).Length); i++)
                 {
                     espacios += " ";//Agrega espacios para alinear a la derecha
@@ -115,9 +111,9 @@ namespace Tickets
                 line.AppendLine(espacios + texto);
             }
         }
-
         //Metodo para centrar el texto
         public void textoCentro(string texto)
+
         {
             if (texto.Length > maxCaract)
             {
@@ -131,7 +127,7 @@ namespace Tickets
                 //Variable para poner espacios restantes
                 string espacios = " ";
                 //Se obtiene la cantidad de espacios libres y el resultado se divide entre dos
-                int centrar = (maxCaract - texto.Length) / 2;
+                int centrar = (maxCaract - texto.Substring(caracterActual, texto.Length - caracterActual).Length)/2;
                 //Obtenemos la longitud del texto restante
 
                 for (int i = 0; i < (maxCaract - texto.Substring(caracterActual, texto.Length - caracterActual).Length); i++)
@@ -142,8 +138,19 @@ namespace Tickets
                 //Agregamos el fragmento restante, agregamos antes del texto los espacios
                 line.AppendLine(espacios + texto.Substring(caracterActual, texto.Length - caracterActual));
             }
-        }
+            else
+            {
+                string espacios = "";
+                int centrar = (maxCaract-texto.Length)/2;
 
+                for (int i = 0; i < centrar; i++)
+                {
+                    espacios += " ";
+                }
+
+                line.AppendLine(espacios + texto);
+            }
+        }
         //Metodo para poner texto a los extremos
         public void textoExtremos(string textoIzquierdo, string textoDerecho)
         {
@@ -157,9 +164,7 @@ namespace Tickets
                 textoIzq = textoIzquierdo.Remove(18, cortar);
             }
             else
-            {
-                textoIzq = textoIzquierdo;
-            }
+            {textoIzq = textoIzquierdo; }
 
             textoCompleto = textoIzq;
 
@@ -169,9 +174,7 @@ namespace Tickets
                 textoDer = textoDerecho.Remove(20, cortar);
             }
             else
-            {
-                textoDer = textoDerecho;
-            }
+            {textoDer = textoDerecho;}
 
             //Obtenemos el numero de espacios restantes para poner textoDerecho al final
             int numeroEspacios = maxCaract - (textoIzq.Length + textoDer.Length);
@@ -182,22 +185,20 @@ namespace Tickets
             textoCompleto += espacios + textoDerecho;
             line.AppendLine(textoCompleto);//Agregamos la linea al ticket, al objeto en si.
         }
-
          //Metodo para agregar los totales de la venta
          public void agregarTotales(string texto, decimal total)
              {
             //Variables a utilizar
             string resumen, valor, textoCompleto, espacios = "";
 
-            if (texto.Length > 25)//sies mayor a 25 lo cortamos
+            if (texto.Length > 25)//si es mayor a 25 lo cortamos
             {
                 cortar = texto.Length - 25;
                 resumen = texto.Remove(25, cortar);
             }
             else
-            {
-                resumen = texto;
-            }
+            { resumen = texto;}
+
             textoCompleto = resumen;
             valor = total.ToString("#.00");//Agregamos el total previo formateo
 
@@ -206,25 +207,23 @@ namespace Tickets
             //Agregamos los espacios
             for (int i = 0; i < numeroEspacios; i++)
             {
-                espacios += "";
+                espacios += " ";
             }
             textoCompleto += espacios + valor;
             line.AppendLine(textoCompleto);
              }
-
         //Metodo para agrefar articulos al ticket de venta
         public void agregarArticulos(string articulo, int cant, decimal precio)
         {
-
             //Valida que la cantidad precio  esten dentro del rango
-            if (cant.ToString().Length < 5 && precio.ToString().Length <= 7 )
+            if (cant.ToString().Length <= 5 && precio.ToString().Length <= 7 )
             {
                 string elemento = "", espacios = " ";
                 bool bandera = false;// Indicara ei es la primera linea que se escribe cuando se baje a la segunda si el nombre del articulo no entra en la primera linea 
                 int numeroEspacios = 0;
 
                 //Si el nombre o descripcion del articulo es mayor a 20, bajar a la siguiente linea
-                if (articulo.Length > 10)
+                if (articulo.Length > 20)
                 {
                     //Colocar la cantidad a la derecha 
                     numeroEspacios = (5 - cant.ToString().Length);
@@ -246,26 +245,25 @@ namespace Tickets
 
                     //Indicara en que caracter se quedo al bajar a la siguiente linea
                     int caracterAtual = 0;
-
                     //Por cada 20 caracteres se agregara una linea siguiente
-                    for (int longitudTexto = articulo.Length; longitudTexto < 10; longitudTexto -= 10)
+                    for (int longitudTexto = articulo.Length; longitudTexto > 20; longitudTexto -= 20)
                     {
                         if (bandera == false)
                         {
-                            line.AppendLine(articulo.Substring(caracterAtual, 10) + elemento);
+                            line.AppendLine(articulo.Substring(caracterAtual, 20) + elemento);
                             bandera = true;
                         }
                         else
 
-                            line.AppendLine(articulo.Substring(caracterAtual, 10));
+                            line.AppendLine(articulo.Substring(caracterAtual, 20));
 
-                        caracterAtual += 10;
+                        caracterAtual += 20;
                     }
                     line.AppendLine(articulo.Substring(caracterAtual, articulo.Length - caracterAtual));
                 }
                 else
                 {
-                    for (int i = 0; i < (10 - articulo.Length); i++)
+                    for (int i = 0; i < (20 - articulo.Length); i++)
                     {
                         espacios += " ";
                     }
@@ -281,13 +279,14 @@ namespace Tickets
                     elemento += espacios + cant.ToString();
 
                     //Colocar el precio a la derecha
-                    numeroEspacios = ( - precio.ToString().Length);
+                    numeroEspacios = (7 - precio.ToString().Length);
                     espacios = "";
                     for (int i = 0; i < numeroEspacios; i++)
                     {
                         espacios += " ";
                     }
                     elemento += espacios + precio.ToString();
+                    line.AppendLine(elemento);
                 }
                   }
             else
