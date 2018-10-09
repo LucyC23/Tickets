@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.btnImprimir = new System.Windows.Forms.Button();
+            this.btnPrueba = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnImprimir
@@ -41,11 +42,22 @@
             this.btnImprimir.UseVisualStyleBackColor = true;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
+            // btnPrueba
+            // 
+            this.btnPrueba.Location = new System.Drawing.Point(202, 165);
+            this.btnPrueba.Name = "btnPrueba";
+            this.btnPrueba.Size = new System.Drawing.Size(75, 23);
+            this.btnPrueba.TabIndex = 1;
+            this.btnPrueba.Text = "Prueba";
+            this.btnPrueba.UseVisualStyleBackColor = true;
+            this.btnPrueba.Click += new System.EventHandler(this.btnPrueba_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(442, 273);
+            this.Controls.Add(this.btnPrueba);
             this.Controls.Add(this.btnImprimir);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -57,6 +69,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnImprimir;
+        private System.Windows.Forms.Button btnPrueba;
     }
 }
 

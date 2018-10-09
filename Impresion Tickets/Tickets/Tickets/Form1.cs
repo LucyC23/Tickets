@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tickets.Vistas;
 
 namespace Tickets
 {
@@ -57,14 +58,20 @@ namespace Tickets
 
             //Resumen de la venta
             ticket.LineasIgual();
-            ticket.agregarTotales("              TOTAL.......$", 100);
+            ticket.agregarTotales("            TOTAL.......$", 100);
             ticket.TextoIzquierda("");
-            ticket.TextoIzquierda("Articulos vendidos");
+            ticket.TextoIzquierda("Articulos vendidos: ");
             ticket.TextoIzquierda("");
             //Texto al final del Ticket
             ticket.TextoDerecha("¡¡Gracias por su compra!!");
             ticket.cortarTicket();
             ticket.imprimirTicket("Microsoft XPS Document Writer");
+        }
+
+        private void btnPrueba_Click(object sender, EventArgs e)
+        {
+            PruebaPPD prueba = new PruebaPPD();
+            prueba.ShowDialog();
         }
     }
 }

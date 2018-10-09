@@ -8,3 +8,4 @@ C:\Users\Morpheus2\Documents\Prueba-Tickets\Tickets\Impresion Tickets\Tickets\Ti
 C:\Users\Morpheus2\Documents\Prueba-Tickets\Tickets\Impresion Tickets\Tickets\Tickets\obj\Debug\Tickets.csproj.GenerateResource.Cache
 C:\Users\Morpheus2\Documents\Prueba-Tickets\Tickets\Impresion Tickets\Tickets\Tickets\obj\Debug\Tickets.exe
 C:\Users\Morpheus2\Documents\Prueba-Tickets\Tickets\Impresion Tickets\Tickets\Tickets\obj\Debug\Tickets.pdb
+C:\Users\Morpheus2\Documents\Prueba-Tickets\Tickets\Impresion Tickets\Tickets\Tickets\obj\Debug\Tickets.Vistas.PruebaPPD.resources
