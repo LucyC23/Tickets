@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Tickets.Vistas;
+using System.Drawing.Printing;
+
 
 namespace Tickets
 {
@@ -22,7 +23,7 @@ namespace Tickets
         {
 
         }
-
+        private Bitmap btm;
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             //Creamos una instancia de la clase CrearTicket
@@ -64,14 +65,26 @@ namespace Tickets
             ticket.TextoIzquierda("");
             //Texto al final del Ticket
             ticket.TextoDerecha("¡¡Gracias por su compra!!");
-            ticket.cortarTicket();
             ticket.imprimirTicket("Microsoft XPS Document Writer");
+            ticket.cortarTicket();
         }
 
         private void btnPrueba_Click(object sender, EventArgs e)
         {
-            PruebaPPD prueba = new PruebaPPD();
-            prueba.ShowDialog();
+            ppdCompra.Document = pdListaCompra;
+            ppdCompra.ShowDialog();
         }
+
+        private void pdListaCompra_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            Bitmap bmp = new Bitmap("C:\\Marquesada.jpeg");
+            e.Graphics.DrawImage(bmp, 0,0);
+        }
+
+        //private void pdListaCompra_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        //{
+        //    e.Graphics.DrawString("Producto: " + dgvCompra.CurrentRow.Cells[1].Value, new Font("Arial", 12, FontStyle.Italic), Brushes.Black, new Point(25, 180));
+
+        //}
     }
 }

@@ -28,8 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.btnImprimir = new System.Windows.Forms.Button();
             this.btnPrueba = new System.Windows.Forms.Button();
+            this.dgvCompra = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ppdCompra = new System.Windows.Forms.PrintPreviewDialog();
+            this.pdListaCompra = new System.Drawing.Printing.PrintDocument();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCompra)).BeginInit();
             this.SuspendLayout();
             // 
             // btnImprimir
@@ -46,22 +53,64 @@
             // 
             this.btnPrueba.Location = new System.Drawing.Point(202, 165);
             this.btnPrueba.Name = "btnPrueba";
-            this.btnPrueba.Size = new System.Drawing.Size(75, 23);
+            this.btnPrueba.Size = new System.Drawing.Size(100, 23);
             this.btnPrueba.TabIndex = 1;
-            this.btnPrueba.Text = "Prueba";
+            this.btnPrueba.Text = "Previzualizar";
             this.btnPrueba.UseVisualStyleBackColor = true;
             this.btnPrueba.Click += new System.EventHandler(this.btnPrueba_Click);
+            // 
+            // dgvCompra
+            // 
+            this.dgvCompra.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCompra.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
+            this.Producto});
+            this.dgvCompra.Location = new System.Drawing.Point(395, 81);
+            this.dgvCompra.Name = "dgvCompra";
+            this.dgvCompra.RowTemplate.Height = 24;
+            this.dgvCompra.Size = new System.Drawing.Size(473, 301);
+            this.dgvCompra.TabIndex = 2;
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
+            // 
+            // Producto
+            // 
+            this.Producto.HeaderText = "Codigo";
+            this.Producto.Name = "Producto";
+            this.Producto.ReadOnly = true;
+            // 
+            // ppdCompra
+            // 
+            this.ppdCompra.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.ppdCompra.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.ppdCompra.ClientSize = new System.Drawing.Size(400, 300);
+            this.ppdCompra.Document = this.pdListaCompra;
+            this.ppdCompra.Enabled = true;
+            this.ppdCompra.Icon = ((System.Drawing.Icon)(resources.GetObject("ppdCompra.Icon")));
+            this.ppdCompra.Name = "ppdCompra";
+            this.ppdCompra.Visible = false;
+            // 
+            // pdListaCompra
+            // 
+            this.pdListaCompra.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.pdListaCompra_PrintPage);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(442, 273);
+            this.ClientSize = new System.Drawing.Size(1016, 467);
+            this.Controls.Add(this.dgvCompra);
             this.Controls.Add(this.btnPrueba);
             this.Controls.Add(this.btnImprimir);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCompra)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -70,6 +119,11 @@
 
         private System.Windows.Forms.Button btnImprimir;
         private System.Windows.Forms.Button btnPrueba;
+        private System.Windows.Forms.DataGridView dgvCompra;
+        private System.Windows.Forms.PrintPreviewDialog ppdCompra;
+        private System.Drawing.Printing.PrintDocument pdListaCompra;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Producto;
     }
 }
 
