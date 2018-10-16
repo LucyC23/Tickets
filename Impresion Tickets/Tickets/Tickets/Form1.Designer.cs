@@ -35,7 +35,7 @@
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ppdCompra = new System.Windows.Forms.PrintPreviewDialog();
-            this.pdListaCompra = new System.Drawing.Printing.PrintDocument();
+            this.DocumentoAImprimir = new System.Drawing.Printing.PrintDocument();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCompra)).BeginInit();
             this.SuspendLayout();
             // 
@@ -89,15 +89,14 @@
             this.ppdCompra.AutoScrollMargin = new System.Drawing.Size(0, 0);
             this.ppdCompra.AutoScrollMinSize = new System.Drawing.Size(0, 0);
             this.ppdCompra.ClientSize = new System.Drawing.Size(400, 300);
-            this.ppdCompra.Document = this.pdListaCompra;
             this.ppdCompra.Enabled = true;
             this.ppdCompra.Icon = ((System.Drawing.Icon)(resources.GetObject("ppdCompra.Icon")));
             this.ppdCompra.Name = "ppdCompra";
             this.ppdCompra.Visible = false;
             // 
-            // pdListaCompra
+            // DocumentoAImprimir
             // 
-            this.pdListaCompra.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.pdListaCompra_PrintPage);
+            this.DocumentoAImprimir.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.DocumentoAImprimir_PrintPage);
             // 
             // Form1
             // 
@@ -121,9 +120,9 @@
         private System.Windows.Forms.Button btnPrueba;
         private System.Windows.Forms.DataGridView dgvCompra;
         private System.Windows.Forms.PrintPreviewDialog ppdCompra;
-        private System.Drawing.Printing.PrintDocument pdListaCompra;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Producto;
+        private System.Drawing.Printing.PrintDocument DocumentoAImprimir;
     }
 }
 

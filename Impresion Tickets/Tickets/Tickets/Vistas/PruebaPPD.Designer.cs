@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PruebaPPD));
             this.ppdTicket = new System.Windows.Forms.PrintPreviewDialog();
-            this.Documento = new System.Drawing.Printing.PrintDocument();
+            this.DocumentoAImprimir = new System.Drawing.Printing.PrintDocument();
             this.btnVizualizar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -39,7 +39,7 @@
             this.ppdTicket.AutoScrollMargin = new System.Drawing.Size(0, 0);
             this.ppdTicket.AutoScrollMinSize = new System.Drawing.Size(0, 0);
             this.ppdTicket.ClientSize = new System.Drawing.Size(400, 300);
-            this.ppdTicket.Document = this.Documento;
+            this.ppdTicket.Document = this.DocumentoAImprimir;
             this.ppdTicket.Enabled = true;
             this.ppdTicket.Icon = ((System.Drawing.Icon)(resources.GetObject("ppdTicket.Icon")));
             this.ppdTicket.Name = "ppdTicket";
@@ -47,8 +47,8 @@
             // 
             // Documento
             // 
-            this.Documento.OriginAtMargins = true;
-            this.Documento.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.Documento_PrintPage);
+            this.DocumentoAImprimir.OriginAtMargins = true;
+            this.DocumentoAImprimir.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.Documento_PrintPage);
             // 
             // btnVizualizar
             // 
@@ -77,6 +77,6 @@
 
         private System.Windows.Forms.PrintPreviewDialog ppdTicket;
         private System.Windows.Forms.Button btnVizualizar;
-        private System.Drawing.Printing.PrintDocument Documento;
+        private System.Drawing.Printing.PrintDocument DocumentoAImprimir;
     }
 }

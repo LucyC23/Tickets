@@ -65,8 +65,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\TIcket.cs" />
     <Compile Include="Conexion\Connection.cs" />
-    <Compile Include="CrearTicket.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,7 +111,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Clases\" />
     <Folder Include="DAO\" />
   </ItemGroup>
   <ItemGroup>
