@@ -35,7 +35,6 @@
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ppdCompra = new System.Windows.Forms.PrintPreviewDialog();
-            this.DocumentoAImprimir = new System.Drawing.Printing.PrintDocument();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCompra)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,7 +56,6 @@
             this.btnPrueba.TabIndex = 1;
             this.btnPrueba.Text = "Previzualizar";
             this.btnPrueba.UseVisualStyleBackColor = true;
-            this.btnPrueba.Click += new System.EventHandler(this.btnPrueba_Click);
             // 
             // dgvCompra
             // 
@@ -94,10 +92,6 @@
             this.ppdCompra.Name = "ppdCompra";
             this.ppdCompra.Visible = false;
             // 
-            // DocumentoAImprimir
-            // 
-            this.DocumentoAImprimir.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.DocumentoAImprimir_PrintPage);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -122,7 +116,6 @@
         private System.Windows.Forms.PrintPreviewDialog ppdCompra;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Producto;
-        private System.Drawing.Printing.PrintDocument DocumentoAImprimir;
     }
 }
 

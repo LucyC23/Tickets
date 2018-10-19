@@ -15,70 +15,59 @@ namespace Tickets
 {
     public partial class Form1 : Form
     {
+        public static object TicketsTemplateFactory { get; private set; }
+
         public Form1()
         {
             InitializeComponent();
         }
 
-    
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
+
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-           
+            TIcket ticket = new TIcket();
+            ticket.TextoDerecha("MARQUESADA CELULAR S DE R.L DE C.V");
+            ticket.TextoDerecha("Expedido en: ");
+            ticket.TextoDerecha("Direccion: Zaragoza #239");
+            ticket.TextoIzquierda("Ticket #");
+            ticket.LineaAsterisco();
+            //Subtitulos del encabezadO
+            ticket.textoCentro("ATENDIDO POR: Vendedor");
+            ticket.textoCentro("CLIENTE: 1");
+            ticket.LineaAsterisco();
+            ticket.textoExtremos("Fecha: " + DateTime.Now.ToShortDateString(), "Hora: " + DateTime.Now.ToLongTimeString());
+            ticket.LineaAsterisco();
+            //Articulos a vender 
+            ticket.encabezadoVenta();
+            ticket.LineaAsterisco();
+            //Para agregar los articulos que se tienen en un datagridview
+            //foreach (DataGridViewRow item in #NombredelDGVdelacompra)
+            // {
+            // ticket.agregarArticulos(//Posicion de cada uno de los elementos del articulo);
+            // }
+            ticket.agregarArticulos("ESTO ES UN EJEMPLO DE UN TICKET DE VENTA EN C#", 11, 100);
+            //Resumen de la venta
+            ticket.LineasIgual();
+            ticket.agregarTotales("TOTAL.......$", 100);
+            //Texto al final del Ticket
+            ticket.TextoDerecha("Gracias por su compra");
+            ticket.TextoIzquierda("");
+            ticket.imprimeTicket("Microsoft XPS Document Writer");
         }
-        private void btnPrueba_Click(object sender, EventArgs e)
-        {
-            TIcket a = new TIcket();
-            // a.HeaderImage = "C:\Documents and Settings\Administrador\Mis documentos\COMPU.jpg" 
-
-            a.anadirLineaCabeza("STARBUCKS COFFEE TAMAULIPAS");
-            a.anadirLineaCabeza("EXPEDIDO EN:");
-            a.anadirLineaCabeza("AV. TAMAULIPAS NO. 5 LOC. 101");
-            a.anadirLineaCabeza("MEXICO, DISTRITO FEDERAL");
-            a.anadirLineaCabeza("RFC: CSI-020226-MV4");
-            // El metodo AddSubHeaderLine es lo mismo al de AddHeaderLine con la diferencia 
-            // de que al final de cada linea agrega una linea punteada "==========" 
-            a.anadirLineaSubCabeza("Caja # 1 - Ticket # 1");
-            a.anadirLineaSubCabeza("Le atendió: Prueba");
-            a.anadirLineaSubCabeza(DateTime.Now.ToShortTimeString()); /* TODO ERROR: Skipped SkippedTokensTrivia */
-
-            // El metodo AddItem requeire 3 parametros, el primero es cantidad, el segundo es la descripcion 
-            // del producto y el tercero es el precio 
-            a.anadirElementos("1", "Articulo Prueba", "15.00");
-            a.anadirElementos("2", "Articulo Prueba", "25.00");
-            // El metodo AddTotal requiere 2 parametros, la descripcion del total, y el precio 
-            a.anadirTotal("SUBTOTAL", "29.75");
-            a.anadirTotal("IVA", "5.25");
-            a.anadirTotal("TOTAL", "35.00");
-            a.anadirTotal("", "");
-            a.anadirTotal("RECIBIDO", "50.00");
-            a.anadirTotal("CAMBIO", "15.00");
-            a.anadirTotal("", "");
-            a.anadirTotal("USTED AHORRO", "0.00");
-
-            // //El metodo AddFooterLine funciona igual que la cabecera 
-            a.anadeLineaAlPie("EL CAFE ES NUESTRA PASION...");
-            a.anadeLineaAlPie("VIVE LA EXPERIENCIA EN STARBUCKS");
-            a.anadeLineaAlPie("GRACIAS POR TU VISITA");
-            // //Y por ultimo llamamos al metodo PrintTicket para imprimir el ticket, este metodo necesita un 
-            // //parametro de tipo string que debe de ser el nombre de la impresora. 
-            a.imprimeTicket("Microsoft XPS Document Writer");
-            ppdCompra.ShowDialog();
-        }
-        private void pdListaCompra_PrintPage(object sender, PrintPageEventArgs e)
-        {
-           
-        }
-        private void DocumentoAImprimir_PrintPage(object sender, PrintPageEventArgs e)
-        {
-            Bitmap bmp = new Bitmap("C:\\Marquesada.jpeg");
-            e.Graphics.DrawImage(bmp, 0, 0);
       
+
         }
+        //private void btnPrueba_Click(object sender, EventArgs e)
+        //{
+        //    PrintPreviewDialog ppd = new PrintPreviewDialog();
+        //    ppd.ClientSize = new Size(400,300);
+        //    ppd.Document = DocumentoAImprimir;
+        //    ppd.ShowDialog();
+        //}
+       
     }
-        
-}
+
